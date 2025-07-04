@@ -1,5 +1,6 @@
 import { writeFile, readFile } from "node:fs/promises";
 import crypto from "crypto";
+import path from "path";
 
 const SUBMISSIONS_FILE = "./submissions.json";
 const sessions = new Map(); // sessionId -> user info
@@ -124,6 +125,12 @@ const server = Bun.serve({
       }
     }
 
+    try {
+      const file = Bun.file(`./public${url.pathname}`);
+      if (await file.exists()) {
+        return new Response(file);
+      }
+    } catch { }
 
     // Serve static assets
     if (url.pathname.startsWith("/dist/")) {
