@@ -17925,16 +17925,27 @@ function App() {
     children: [
       /* @__PURE__ */ jsx_dev_runtime.jsxDEV("h1", {
         className: "display-4",
-        children: "Welcome to Bun + React"
+        children: "Marianne Eberhardt(NO) - En Hjelpende Hån"
       }, undefined, false, undefined, this),
       /* @__PURE__ */ jsx_dev_runtime.jsxDEV("p", {
         className: "lead",
-        children: "This is your homepage styled with Bootstrap."
+        children: "Jeg hjelper, men håner dig!"
       }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsx_dev_runtime.jsxDEV(Link, {
-        to: "/kontakt",
-        className: "btn btn-primary",
-        children: "Kontakt mig!"
+      /* @__PURE__ */ jsx_dev_runtime.jsxDEV("div", {
+        children: /* @__PURE__ */ jsx_dev_runtime.jsxDEV(Link, {
+          to: "/kontakt",
+          className: "btn btn-primary",
+          children: "Kontakt mig!"
+        }, undefined, false, undefined, this)
+      }, undefined, false, undefined, this),
+      /* @__PURE__ */ jsx_dev_runtime.jsxDEV("div", {
+        className: "mt-3",
+        children: /* @__PURE__ */ jsx_dev_runtime.jsxDEV("img", {
+          src: "/assets/img/haan.png",
+          alt: "Marianne Eberhardt logo",
+          className: "img-fluid rounded shadow-lg",
+          style: { maxWidth: "1024px", width: "100%" }
+        }, undefined, false, undefined, this)
       }, undefined, false, undefined, this)
     ]
   }, undefined, true, undefined, this);
