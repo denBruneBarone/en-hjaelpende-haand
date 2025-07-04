@@ -11,12 +11,6 @@
 <body>
   <div id="root"></div>
   <script type="module" src="/dist/index.js"></script>
-
-  <script>
-    setInterval(() => {
-      fetch("/ping").catch(() => location.reload());
-    }, 1000);
-  </script>
 </body>
 
 </html>
