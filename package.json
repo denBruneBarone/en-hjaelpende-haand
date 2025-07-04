@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "build": "echo 'no build step needed'"
+  },
   "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
