@@ -41,7 +41,7 @@ export default function Contact() {
 
     return (
         <div className="container mt-5">
-            <h2>Contact Us</h2>
+            <h2>Contact Us snart på dansk</h2>
 
             {submitted ? (
                 <div className="alert alert-success">

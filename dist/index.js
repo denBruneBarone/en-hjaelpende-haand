@@ -16023,8 +16023,9 @@ var require_jsx_dev_runtime = __commonJS((exports, module) => {
 });
 
 // index.jsx
-var import_react5 = __toESM(require_react(), 1);
+var import_react11 = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
+var import_client2 = __toESM(require_client(), 1);
 
 // node_modules/react-router/dist/development/chunk-QMGIS6GS.mjs
 var React3 = __toESM(require_react(), 1);
@@ -16620,6 +16621,13 @@ function useNavigateUnstable() {
   return navigate;
 }
 var OutletContext = React2.createContext(null);
+function useOutlet(context) {
+  let outlet = React2.useContext(RouteContext).outlet;
+  if (outlet) {
+    return /* @__PURE__ */ React2.createElement(OutletContext.Provider, { value: context }, outlet);
+  }
+  return outlet;
+}
 function useResolvedPath(to, { relative } = {}) {
   let { matches } = React2.useContext(RouteContext);
   let { pathname: locationPathname } = useLocation();
@@ -16924,6 +16932,9 @@ function DataRoutes({
   state
 }) {
   return useRoutesImpl(routes, undefined, state, future);
+}
+function Outlet(props) {
+  return useOutlet(props.context);
 }
 function Route(_props) {
   invariant(false, `A <Route> is only ever to be used as the child of <Routes> element, never rendered directly. Please wrap your <Route> in a <Routes>.`);
@@ -17916,31 +17927,143 @@ var SERVER_NO_BODY_STATUS_CODES = /* @__PURE__ */ new Set([
   304
 ]);
 
-// src/App.jsx
+// src/pages/App.jsx
+var import_react2 = __toESM(require_react(), 1);
+
+// src/components/BurgerMenu.jsx
 var import_react = __toESM(require_react(), 1);
 var jsx_dev_runtime = __toESM(require_jsx_dev_runtime(), 1);
+function BurgerMenu() {
+  const location = useLocation();
+  const [menuOpen, setMenuOpen] = import_react.useState(false);
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const closeMenu = () => setMenuOpen(false);
+  const isActive = (path) => location.pathname === path ? "active" : "";
+  return /* @__PURE__ */ jsx_dev_runtime.jsxDEV("nav", {
+    className: "navbar navbar-expand-lg navbar-dark bg-dark px-3",
+    children: [
+      /* @__PURE__ */ jsx_dev_runtime.jsxDEV(Link, {
+        className: "navbar-brand",
+        to: "/",
+        children: "Marianne Eberhardt - En Støttende Hånd"
+      }, undefined, false, undefined, this),
+      /* @__PURE__ */ jsx_dev_runtime.jsxDEV("button", {
+        className: "navbar-toggler",
+        type: "button",
+        onClick: toggleMenu,
+        "aria-controls": "navbarNav",
+        "aria-expanded": menuOpen,
+        "aria-label": "Toggle navigation",
+        children: /* @__PURE__ */ jsx_dev_runtime.jsxDEV("span", {
+          className: "navbar-toggler-icon"
+        }, undefined, false, undefined, this)
+      }, undefined, false, undefined, this),
+      /* @__PURE__ */ jsx_dev_runtime.jsxDEV("div", {
+        className: `collapse navbar-collapse ${menuOpen ? "show" : ""}`,
+        id: "navbarNav",
+        children: /* @__PURE__ */ jsx_dev_runtime.jsxDEV("ul", {
+          className: "navbar-nav ms-auto",
+          children: [
+            /* @__PURE__ */ jsx_dev_runtime.jsxDEV("li", {
+              className: "nav-item",
+              children: /* @__PURE__ */ jsx_dev_runtime.jsxDEV(Link, {
+                to: "/",
+                onClick: closeMenu,
+                className: `nav-link ${isActive("/")}`,
+                children: "Velkommen"
+              }, undefined, false, undefined, this)
+            }, undefined, false, undefined, this),
+            /* @__PURE__ */ jsx_dev_runtime.jsxDEV("li", {
+              className: "nav-item",
+              children: /* @__PURE__ */ jsx_dev_runtime.jsxDEV(Link, {
+                to: "/ayurvedisk-profil",
+                onClick: closeMenu,
+                className: `nav-link ${isActive("/ayurvedisk-profil")}`,
+                children: "Ayurvedisk Profil"
+              }, undefined, false, undefined, this)
+            }, undefined, false, undefined, this),
+            /* @__PURE__ */ jsx_dev_runtime.jsxDEV("li", {
+              className: "nav-item",
+              children: /* @__PURE__ */ jsx_dev_runtime.jsxDEV(Link, {
+                to: "/sygedagpenge",
+                onClick: closeMenu,
+                className: `nav-link ${isActive("/sygedagpengesag")}`,
+                children: "Sygedagpengesag"
+              }, undefined, false, undefined, this)
+            }, undefined, false, undefined, this),
+            /* @__PURE__ */ jsx_dev_runtime.jsxDEV("li", {
+              className: "nav-item",
+              children: /* @__PURE__ */ jsx_dev_runtime.jsxDEV(Link, {
+                to: "/om-marianne",
+                onClick: closeMenu,
+                className: `nav-link ${isActive("/om-marianne")}`,
+                children: "Om Marianne"
+              }, undefined, false, undefined, this)
+            }, undefined, false, undefined, this),
+            /* @__PURE__ */ jsx_dev_runtime.jsxDEV("li", {
+              className: "nav-item",
+              children: /* @__PURE__ */ jsx_dev_runtime.jsxDEV(Link, {
+                to: "/ydelser",
+                onClick: closeMenu,
+                className: `nav-link ${isActive("/ydelser")}`,
+                children: "Ydelser"
+              }, undefined, false, undefined, this)
+            }, undefined, false, undefined, this),
+            /* @__PURE__ */ jsx_dev_runtime.jsxDEV("li", {
+              className: "nav-item",
+              children: /* @__PURE__ */ jsx_dev_runtime.jsxDEV(Link, {
+                to: "/kontakt",
+                onClick: closeMenu,
+                className: `nav-link ${isActive("/kontakt")}`,
+                children: "Kontakt"
+              }, undefined, false, undefined, this)
+            }, undefined, false, undefined, this)
+          ]
+        }, undefined, true, undefined, this)
+      }, undefined, false, undefined, this)
+    ]
+  }, undefined, true, undefined, this);
+}
+
+// src/pages/App.jsx
+var jsx_dev_runtime2 = __toESM(require_jsx_dev_runtime(), 1);
 function App() {
-  return /* @__PURE__ */ jsx_dev_runtime.jsxDEV("div", {
+  return /* @__PURE__ */ jsx_dev_runtime2.jsxDEV("div", {
+    children: [
+      /* @__PURE__ */ jsx_dev_runtime2.jsxDEV(BurgerMenu, {}, undefined, false, undefined, this),
+      /* @__PURE__ */ jsx_dev_runtime2.jsxDEV("main", {
+        className: "container mt-4",
+        children: /* @__PURE__ */ jsx_dev_runtime2.jsxDEV(Outlet, {}, undefined, false, undefined, this)
+      }, undefined, false, undefined, this)
+    ]
+  }, undefined, true, undefined, this);
+}
+
+// src/pages/Home.jsx
+var import_react3 = __toESM(require_react(), 1);
+var jsx_dev_runtime3 = __toESM(require_jsx_dev_runtime(), 1);
+function Home() {
+  return /* @__PURE__ */ jsx_dev_runtime3.jsxDEV("div", {
     className: "container mt-5 text-center",
     children: [
-      /* @__PURE__ */ jsx_dev_runtime.jsxDEV("h1", {
+      /* @__PURE__ */ jsx_dev_runtime3.jsxDEV("h1", {
         className: "display-4",
         children: "Marianne Eberhardt(NO) - En Hjelpende Hån"
       }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsx_dev_runtime.jsxDEV("p", {
+      /* @__PURE__ */ jsx_dev_runtime3.jsxDEV("p", {
         className: "lead",
         children: "Jeg hjelper, men håner dig!"
       }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsx_dev_runtime.jsxDEV("div", {
-        children: /* @__PURE__ */ jsx_dev_runtime.jsxDEV(Link, {
+      /* @__PURE__ */ jsx_dev_runtime3.jsxDEV("div", {
+        children: /* @__PURE__ */ jsx_dev_runtime3.jsxDEV(Link, {
           to: "/kontakt",
           className: "btn btn-primary",
           children: "Kontakt mig!"
         }, undefined, false, undefined, this)
       }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsx_dev_runtime.jsxDEV("div", {
+      /* @__PURE__ */ jsx_dev_runtime3.jsxDEV("div", {
         className: "mt-3",
-        children: /* @__PURE__ */ jsx_dev_runtime.jsxDEV("img", {
+        children: /* @__PURE__ */ jsx_dev_runtime3.jsxDEV("img", {
           src: "/assets/img/haan.png",
           alt: "Marianne Eberhardt logo",
           className: "img-fluid rounded shadow-lg",
@@ -17951,16 +18074,16 @@ function App() {
   }, undefined, true, undefined, this);
 }
 
-// src/Kontakt.jsx
-var import_react2 = __toESM(require_react(), 1);
-var jsx_dev_runtime2 = __toESM(require_jsx_dev_runtime(), 1);
+// src/pages/Kontakt.jsx
+var import_react4 = __toESM(require_react(), 1);
+var jsx_dev_runtime4 = __toESM(require_jsx_dev_runtime(), 1);
 function Contact() {
-  const [formData, setFormData] = import_react2.useState({
+  const [formData, setFormData] = import_react4.useState({
     name: "",
     email: "",
     message: ""
   });
-  const [submitted, setSubmitted] = import_react2.useState(false);
+  const [submitted, setSubmitted] = import_react4.useState(false);
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -17987,31 +18110,31 @@ function Contact() {
     }
     setSubmitted(true);
   };
-  return /* @__PURE__ */ jsx_dev_runtime2.jsxDEV("div", {
+  return /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("div", {
     className: "container mt-5",
     children: [
-      /* @__PURE__ */ jsx_dev_runtime2.jsxDEV("h2", {
-        children: "Contact Us"
+      /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("h2", {
+        children: "Contact Us snart på dansk"
       }, undefined, false, undefined, this),
-      submitted ? /* @__PURE__ */ jsx_dev_runtime2.jsxDEV("div", {
+      submitted ? /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("div", {
         className: "alert alert-success",
         children: [
           "Thanks for contacting us, ",
           formData.name,
           "!"
         ]
-      }, undefined, true, undefined, this) : /* @__PURE__ */ jsx_dev_runtime2.jsxDEV("form", {
+      }, undefined, true, undefined, this) : /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("form", {
         onSubmit: handleSubmit,
         children: [
-          /* @__PURE__ */ jsx_dev_runtime2.jsxDEV("div", {
+          /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("div", {
             className: "mb-3",
             children: [
-              /* @__PURE__ */ jsx_dev_runtime2.jsxDEV("label", {
+              /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("label", {
                 className: "form-label",
                 htmlFor: "name",
                 children: "Name"
               }, undefined, false, undefined, this),
-              /* @__PURE__ */ jsx_dev_runtime2.jsxDEV("input", {
+              /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("input", {
                 type: "text",
                 id: "name",
                 name: "name",
@@ -18022,15 +18145,15 @@ function Contact() {
               }, undefined, false, undefined, this)
             ]
           }, undefined, true, undefined, this),
-          /* @__PURE__ */ jsx_dev_runtime2.jsxDEV("div", {
+          /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("div", {
             className: "mb-3",
             children: [
-              /* @__PURE__ */ jsx_dev_runtime2.jsxDEV("label", {
+              /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("label", {
                 className: "form-label",
                 htmlFor: "email",
                 children: "Email"
               }, undefined, false, undefined, this),
-              /* @__PURE__ */ jsx_dev_runtime2.jsxDEV("input", {
+              /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("input", {
                 type: "email",
                 id: "email",
                 name: "email",
@@ -18041,15 +18164,15 @@ function Contact() {
               }, undefined, false, undefined, this)
             ]
           }, undefined, true, undefined, this),
-          /* @__PURE__ */ jsx_dev_runtime2.jsxDEV("div", {
+          /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("div", {
             className: "mb-3",
             children: [
-              /* @__PURE__ */ jsx_dev_runtime2.jsxDEV("label", {
+              /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("label", {
                 className: "form-label",
                 htmlFor: "message",
                 children: "Message"
               }, undefined, false, undefined, this),
-              /* @__PURE__ */ jsx_dev_runtime2.jsxDEV("textarea", {
+              /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("textarea", {
                 id: "message",
                 name: "message",
                 className: "form-control",
@@ -18060,14 +18183,14 @@ function Contact() {
               }, undefined, false, undefined, this)
             ]
           }, undefined, true, undefined, this),
-          /* @__PURE__ */ jsx_dev_runtime2.jsxDEV("button", {
+          /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("button", {
             type: "submit",
             className: "btn btn-primary",
             children: "Send"
           }, undefined, false, undefined, this)
         ]
       }, undefined, true, undefined, this),
-      /* @__PURE__ */ jsx_dev_runtime2.jsxDEV(Link, {
+      /* @__PURE__ */ jsx_dev_runtime4.jsxDEV(Link, {
         to: "/",
         className: "btn btn-link mt-3",
         children: "Tilbage til start"
@@ -18076,12 +18199,12 @@ function Contact() {
   }, undefined, true, undefined, this);
 }
 
-// src/Login.jsx
-var import_react3 = __toESM(require_react(), 1);
-var jsx_dev_runtime3 = __toESM(require_jsx_dev_runtime(), 1);
+// src/pages/Login.jsx
+var import_react5 = __toESM(require_react(), 1);
+var jsx_dev_runtime5 = __toESM(require_jsx_dev_runtime(), 1);
 function Login() {
-  const [form, setForm] = import_react3.useState({ username: "", password: "" });
-  const [error, setError] = import_react3.useState("");
+  const [form, setForm] = import_react5.useState({ username: "", password: "" });
+  const [error, setError] = import_react5.useState("");
   const navigate = useNavigate();
   const handleChange = (e) => {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
@@ -18105,29 +18228,29 @@ function Login() {
       setError("Network error");
     }
   };
-  return /* @__PURE__ */ jsx_dev_runtime3.jsxDEV("div", {
+  return /* @__PURE__ */ jsx_dev_runtime5.jsxDEV("div", {
     className: "container mt-5",
     style: { maxWidth: "400px" },
     children: [
-      /* @__PURE__ */ jsx_dev_runtime3.jsxDEV("h2", {
+      /* @__PURE__ */ jsx_dev_runtime5.jsxDEV("h2", {
         children: "Admin Login"
       }, undefined, false, undefined, this),
-      error && /* @__PURE__ */ jsx_dev_runtime3.jsxDEV("div", {
+      error && /* @__PURE__ */ jsx_dev_runtime5.jsxDEV("div", {
         className: "alert alert-danger",
         children: error
       }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsx_dev_runtime3.jsxDEV("form", {
+      /* @__PURE__ */ jsx_dev_runtime5.jsxDEV("form", {
         onSubmit: handleSubmit,
         children: [
-          /* @__PURE__ */ jsx_dev_runtime3.jsxDEV("div", {
+          /* @__PURE__ */ jsx_dev_runtime5.jsxDEV("div", {
             className: "mb-3",
             children: [
-              /* @__PURE__ */ jsx_dev_runtime3.jsxDEV("label", {
+              /* @__PURE__ */ jsx_dev_runtime5.jsxDEV("label", {
                 htmlFor: "username",
                 className: "form-label",
                 children: "Username"
               }, undefined, false, undefined, this),
-              /* @__PURE__ */ jsx_dev_runtime3.jsxDEV("input", {
+              /* @__PURE__ */ jsx_dev_runtime5.jsxDEV("input", {
                 id: "username",
                 name: "username",
                 className: "form-control",
@@ -18137,15 +18260,15 @@ function Login() {
               }, undefined, false, undefined, this)
             ]
           }, undefined, true, undefined, this),
-          /* @__PURE__ */ jsx_dev_runtime3.jsxDEV("div", {
+          /* @__PURE__ */ jsx_dev_runtime5.jsxDEV("div", {
             className: "mb-3",
             children: [
-              /* @__PURE__ */ jsx_dev_runtime3.jsxDEV("label", {
+              /* @__PURE__ */ jsx_dev_runtime5.jsxDEV("label", {
                 htmlFor: "password",
                 className: "form-label",
                 children: "Password"
               }, undefined, false, undefined, this),
-              /* @__PURE__ */ jsx_dev_runtime3.jsxDEV("input", {
+              /* @__PURE__ */ jsx_dev_runtime5.jsxDEV("input", {
                 id: "password",
                 type: "password",
                 name: "password",
@@ -18156,7 +18279,7 @@ function Login() {
               }, undefined, false, undefined, this)
             ]
           }, undefined, true, undefined, this),
-          /* @__PURE__ */ jsx_dev_runtime3.jsxDEV("button", {
+          /* @__PURE__ */ jsx_dev_runtime5.jsxDEV("button", {
             type: "submit",
             className: "btn btn-primary w-100",
             children: "Login"
@@ -18167,14 +18290,14 @@ function Login() {
   }, undefined, true, undefined, this);
 }
 
-// src/Submissions.jsx
-var import_react4 = __toESM(require_react(), 1);
-var jsx_dev_runtime4 = __toESM(require_jsx_dev_runtime(), 1);
+// src/pages/Submissions.jsx
+var import_react6 = __toESM(require_react(), 1);
+var jsx_dev_runtime6 = __toESM(require_jsx_dev_runtime(), 1);
 function Submissions() {
-  const [submissions, setSubmissions] = import_react4.useState(null);
-  const [error, setError] = import_react4.useState(null);
+  const [submissions, setSubmissions] = import_react6.useState(null);
+  const [error, setError] = import_react6.useState(null);
   const navigate = useNavigate();
-  import_react4.useEffect(() => {
+  import_react6.useEffect(() => {
     async function fetchSubmissions() {
       const res = await fetch("/api/submissions");
       console.log("res.status " + res.status);
@@ -18192,56 +18315,56 @@ function Submissions() {
     fetchSubmissions();
   }, [navigate]);
   if (error)
-    return /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("div", {
+    return /* @__PURE__ */ jsx_dev_runtime6.jsxDEV("div", {
       className: "alert alert-danger",
       children: error
     }, undefined, false, undefined, this);
   if (!submissions)
-    return /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("div", {
+    return /* @__PURE__ */ jsx_dev_runtime6.jsxDEV("div", {
       children: "Loading submissions..."
     }, undefined, false, undefined, this);
-  return /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("div", {
+  return /* @__PURE__ */ jsx_dev_runtime6.jsxDEV("div", {
     className: "container mt-5",
     children: [
-      /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("h2", {
+      /* @__PURE__ */ jsx_dev_runtime6.jsxDEV("h2", {
         children: "Contact Form Submissions"
       }, undefined, false, undefined, this),
-      submissions.length === 0 ? /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("p", {
+      submissions.length === 0 ? /* @__PURE__ */ jsx_dev_runtime6.jsxDEV("p", {
         children: "No submissions yet."
-      }, undefined, false, undefined, this) : /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("table", {
+      }, undefined, false, undefined, this) : /* @__PURE__ */ jsx_dev_runtime6.jsxDEV("table", {
         className: "table table-striped",
         children: [
-          /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("thead", {
-            children: /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("tr", {
+          /* @__PURE__ */ jsx_dev_runtime6.jsxDEV("thead", {
+            children: /* @__PURE__ */ jsx_dev_runtime6.jsxDEV("tr", {
               children: [
-                /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("th", {
+                /* @__PURE__ */ jsx_dev_runtime6.jsxDEV("th", {
                   children: "Timestamp"
                 }, undefined, false, undefined, this),
-                /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("th", {
+                /* @__PURE__ */ jsx_dev_runtime6.jsxDEV("th", {
                   children: "Name"
                 }, undefined, false, undefined, this),
-                /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("th", {
+                /* @__PURE__ */ jsx_dev_runtime6.jsxDEV("th", {
                   children: "Email"
                 }, undefined, false, undefined, this),
-                /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("th", {
+                /* @__PURE__ */ jsx_dev_runtime6.jsxDEV("th", {
                   children: "Message"
                 }, undefined, false, undefined, this)
               ]
             }, undefined, true, undefined, this)
           }, undefined, false, undefined, this),
-          /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("tbody", {
-            children: submissions.map((sub, i) => /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("tr", {
+          /* @__PURE__ */ jsx_dev_runtime6.jsxDEV("tbody", {
+            children: submissions.map((sub, i) => /* @__PURE__ */ jsx_dev_runtime6.jsxDEV("tr", {
               children: [
-                /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("td", {
+                /* @__PURE__ */ jsx_dev_runtime6.jsxDEV("td", {
                   children: new Date(sub.timestamp).toLocaleString()
                 }, undefined, false, undefined, this),
-                /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("td", {
+                /* @__PURE__ */ jsx_dev_runtime6.jsxDEV("td", {
                   children: sub.name
                 }, undefined, false, undefined, this),
-                /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("td", {
+                /* @__PURE__ */ jsx_dev_runtime6.jsxDEV("td", {
                   children: sub.email
                 }, undefined, false, undefined, this),
-                /* @__PURE__ */ jsx_dev_runtime4.jsxDEV("td", {
+                /* @__PURE__ */ jsx_dev_runtime6.jsxDEV("td", {
                   children: sub.message
                 }, undefined, false, undefined, this)
               ]
@@ -18253,28 +18376,92 @@ function Submissions() {
   }, undefined, true, undefined, this);
 }
 
+// src/pages/AyurvediskProfil.jsx
+var import_react7 = __toESM(require_react(), 1);
+var jsx_dev_runtime7 = __toESM(require_jsx_dev_runtime(), 1);
+function AyurvediskProfil() {
+  return /* @__PURE__ */ jsx_dev_runtime7.jsxDEV("div", {
+    children: /* @__PURE__ */ jsx_dev_runtime7.jsxDEV("h1", {
+      children: "Ayurvedisk Profil tamtam her"
+    }, undefined, false, undefined, this)
+  }, undefined, false, undefined, this);
+}
+
+// src/pages/Om.jsx
+var import_react8 = __toESM(require_react(), 1);
+var jsx_dev_runtime8 = __toESM(require_jsx_dev_runtime(), 1);
+function Om() {
+  return /* @__PURE__ */ jsx_dev_runtime8.jsxDEV("div", {
+    children: /* @__PURE__ */ jsx_dev_runtime8.jsxDEV("h1", {
+      children: "Om Marianne her"
+    }, undefined, false, undefined, this)
+  }, undefined, false, undefined, this);
+}
+
+// src/pages/Sygedagpenge.jsx
+var import_react9 = __toESM(require_react(), 1);
+var jsx_dev_runtime9 = __toESM(require_jsx_dev_runtime(), 1);
+function Sygedagpengesag() {
+  return /* @__PURE__ */ jsx_dev_runtime9.jsxDEV("div", {
+    children: /* @__PURE__ */ jsx_dev_runtime9.jsxDEV("h1", {
+      children: "Sygedagpenge hjælp her"
+    }, undefined, false, undefined, this)
+  }, undefined, false, undefined, this);
+}
+
+// src/pages/Ydelser.jsx
+var import_react10 = __toESM(require_react(), 1);
+var jsx_dev_runtime10 = __toESM(require_jsx_dev_runtime(), 1);
+function Ydelser() {
+  return /* @__PURE__ */ jsx_dev_runtime10.jsxDEV("div", {
+    children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV("h1", {
+      children: "Ydelser her. "
+    }, undefined, false, undefined, this)
+  }, undefined, false, undefined, this);
+}
+
 // index.jsx
-var jsx_dev_runtime5 = __toESM(require_jsx_dev_runtime(), 1);
-var root = import_client.createRoot(document.getElementById("root"));
-root.render(/* @__PURE__ */ jsx_dev_runtime5.jsxDEV(BrowserRouter, {
-  children: /* @__PURE__ */ jsx_dev_runtime5.jsxDEV(Routes, {
-    children: [
-      /* @__PURE__ */ jsx_dev_runtime5.jsxDEV(Route, {
-        path: "/",
-        element: /* @__PURE__ */ jsx_dev_runtime5.jsxDEV(App, {}, undefined, false, undefined, this)
-      }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsx_dev_runtime5.jsxDEV(Route, {
-        path: "/kontakt",
-        element: /* @__PURE__ */ jsx_dev_runtime5.jsxDEV(Contact, {}, undefined, false, undefined, this)
-      }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsx_dev_runtime5.jsxDEV(Route, {
-        path: "/login",
-        element: /* @__PURE__ */ jsx_dev_runtime5.jsxDEV(Login, {}, undefined, false, undefined, this)
-      }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsx_dev_runtime5.jsxDEV(Route, {
-        path: "/submissions",
-        element: /* @__PURE__ */ jsx_dev_runtime5.jsxDEV(Submissions, {}, undefined, false, undefined, this)
-      }, undefined, false, undefined, this)
-    ]
-  }, undefined, true, undefined, this)
+var jsx_dev_runtime11 = __toESM(require_jsx_dev_runtime(), 1);
+var root = import_client2.createRoot(document.getElementById("root"));
+root.render(/* @__PURE__ */ jsx_dev_runtime11.jsxDEV(BrowserRouter, {
+  children: /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Routes, {
+    children: /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Route, {
+      path: "/",
+      element: /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(App, {}, undefined, false, undefined, this),
+      children: [
+        /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Route, {
+          index: true,
+          element: /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Home, {}, undefined, false, undefined, this)
+        }, undefined, false, undefined, this),
+        /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Route, {
+          path: "kontakt",
+          element: /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Contact, {}, undefined, false, undefined, this)
+        }, undefined, false, undefined, this),
+        /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Route, {
+          path: "login",
+          element: /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Login, {}, undefined, false, undefined, this)
+        }, undefined, false, undefined, this),
+        /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Route, {
+          path: "submissions",
+          element: /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Submissions, {}, undefined, false, undefined, this)
+        }, undefined, false, undefined, this),
+        /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Route, {
+          path: "ayurvedisk-profil",
+          element: /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(AyurvediskProfil, {}, undefined, false, undefined, this)
+        }, undefined, false, undefined, this),
+        /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Route, {
+          path: "om-marianne",
+          element: /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Om, {}, undefined, false, undefined, this)
+        }, undefined, false, undefined, this),
+        /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Route, {
+          path: "sygedagpenge",
+          element: /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Sygedagpengesag, {}, undefined, false, undefined, this)
+        }, undefined, false, undefined, this),
+        /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Route, {
+          path: "ydelser",
+          element: /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Ydelser, {}, undefined, false, undefined, this)
+        }, undefined, false, undefined, this)
+      ]
+    }, undefined, true, undefined, this)
+  }, undefined, false, undefined, this)
 }, undefined, false, undefined, this));
