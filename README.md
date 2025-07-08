@@ -1,4 +1,4 @@
-![Logo](./assets/img/logo/logo-EN-600.png)
+![Logo](../public/assets/img/logo-EN.png)
 
 # en-hjaelpende-haand
 Marianne Eberhardt - En Hjælpende Hånd
