@@ -1,16 +1,18 @@
 import { writeFile, readFile } from "node:fs/promises";
 import crypto from "crypto";
 import path from "path";
+import { Resend } from "resend";
 
 const SUBMISSIONS_FILE = "./submissions.json";
 const sessions = new Map(); // sessionId -> user info
-
 const PORT = process.env.PORT || 3000;
-
 const ADMIN_USER = {
-  username: "admin",
-  password: "admin", // TODO: hash kode, gem kode, 
+  username: Bun.env.ADMIN_USERNAME,
+  password: Bun.env.ADMIN_PASSWORD, // TODO: hash kode, gem kode, 
 };
+const resend = new Resend(Bun.env.RESEND_API_KEY);
+const TO_EMAIL = Bun.env.TO_EMAIL
+const FROM_EMAIL = Bun.env.FROM_EMAIL
 
 function parseCookies(cookieHeader) {
   const cookies = {};
@@ -21,6 +23,7 @@ function parseCookies(cookieHeader) {
   });
   return cookies;
 }
+
 
 function createSession() {
   return crypto.randomBytes(16).toString("hex");
@@ -45,6 +48,32 @@ async function saveSubmission(data) {
     await writeFile(SUBMISSIONS_FILE, JSON.stringify(submissions, null, 2));
   } catch (err) {
     console.error("Failed to save submission:", err);
+  }
+}
+
+
+async function sendEmailNotification(formData) {
+  const { name, email, message } = formData;
+
+  try {
+    await resend.emails.send({
+      //TODO: load fra env! verificer eget domæne!
+      'cc': [],
+      // marianneeberhardt@enstoettendehaand.dk
+      'from': "onboarding@resend.dev",
+      'to': "marianneeberhardt.yoga@gmail.com",
+      'subject': "En Støttende Hånd - ny henvendelse!",
+      html: `
+        <h3>Ny henvedelse</h3>
+        <p><strong>Navn:</strong> ${name || "N/A"}</p>
+        <p><strong>Email:</strong> ${email || "N/A"}</p>
+        <p><strong>Besked:</strong></p>
+        <p>${message || "N/A"}</p>
+      `,
+    });
+    console.log("Email sent successfully.");
+  } catch (error) {
+    console.error("Failed to send email:", error);
   }
 }
 
@@ -91,6 +120,7 @@ const server = Bun.serve({
         console.log(data);
 
         await saveSubmission(data);
+        sendEmailNotification(data)
 
         return new Response(JSON.stringify({ success: true }), {
           status: 200,
