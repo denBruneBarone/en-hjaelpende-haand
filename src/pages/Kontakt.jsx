@@ -39,6 +39,7 @@ export default function Contact() {
         setSubmitted(true);
     };
 
+
     return (
         <div className="container mt-5">
             <h2>Contact Us snart på dansk</h2>
